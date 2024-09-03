@@ -1,0 +1,25 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+<h1>Поиск объявлений</h1>
+<hr>
+
+<form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">Поиск</button>
+</form>
+
+{% if filter.qs %}
+    <h2>Результаты поиска:</h2>
+    <ul>
+        {% for advertisement in filter.qs %}
+        <li>
+            <p><a href="{% url 'advertisement_detail' advertisement.pk %}">{{ advertisement.title }}</a> - {{ advertisement.author }} - {{ advertisement.created_at }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>По вашему запросу объявлений не найдено.</p>
+{% endif %}
+
+{% endblock content %}

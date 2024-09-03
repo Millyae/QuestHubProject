@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Уведомление</title>
+</head>
+<body>
+    <h1>Уведомление о подписке</h1>
+    <p>Уважаемый {{ subscriber.username }},</p>
+    <p>В вашей любимой категории появилось новое объявление!</p>
+    <p>Заголовок: {{ advertisement.title }}</p>
+    <p>Содержание: {{ advertisement.content|truncatechars:50 }}</p>
+    <p>Перейдите по <a href="{{ advertisement.get_absolute_url }}">ссылке</a>, чтобы прочитать подробнее.</p>
+    <p>Спасибо за вашу подписку!</p>
+</body>
+</html>

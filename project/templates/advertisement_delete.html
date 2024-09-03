@@ -1,0 +1,18 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+<div class="delete-container">
+    <h1>Удаление объявления</h1>
+    <hr>
+
+    <h2>Вы уверены, что хотите удалить объявление "{{ advertisement.title }}"?</h2>
+    <p>Автор: {{ advertisement.author }}</p>
+    <p>Дата добавления: {{ advertisement.created_at }}</p>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Удалить" />
+        <a href="{% url 'advertisement_detail' pk=advertisement.pk %}">Отмена</a>
+    </form>
+</div>
+{% endblock content %}

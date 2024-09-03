@@ -1,0 +1,59 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+{% load custom_tags %}
+
+{% block title %}
+Advertisements
+{% endblock title %}
+
+{% block content %}
+<div class="content-container">
+    <div class="page_header">
+        <p><u>Количество объявлений: {{ advertisements|length }}</u></p>
+    </div>
+
+    <h1>Список объявлений</h1>
+    <hr>
+
+    {% if advertisements %}
+        <table class="advertisements-table">
+            <tr>
+                <th><h3><b>Заголовок</b></h3></th>
+                <th><h3><b>Автор</b></h3></th>
+                <th><h3><b>Описание</b></h3></th>
+                <th><h3><b>Дата добавления</b></h3></th>
+            </tr>
+            {% for ad in advertisements %}
+            <tr>
+                <td><a href="{{ ad.get_absolute_url }}">{{ ad.title }}</a></td>
+                <td>{{ ad.author }}</td>
+                <td>{{ ad.content|truncatewords:20|censor }}</td>
+                <td>{{ ad.created_at|date:"d.m.Y" }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h2 class="no-ads">Объявлений нет!</h2>
+    {% endif %}
+
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?{% url_replace page=1 %}">1</a>
+            {% if page_obj.previous_page_number != 1 %}
+                ...
+                <a href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
+            {% endif %}
+        {% endif %}
+
+        <span>{{ page_obj.number }}</span>
+
+        {% if page_obj.has_next %}
+            <a href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
+            {% if page_obj.paginator.num_pages != page_obj.next_page_number %}
+                ...
+                <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

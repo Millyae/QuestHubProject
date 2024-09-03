@@ -1,0 +1,31 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+<h1>{{ advertisement.title }}</h1>
+<p>{{ advertisement.content|safe }}</p>
+
+{% if advertisement.video_url %}
+    <video width="600" controls>
+        <source src="{{ advertisement.video_url }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+{% endif %}
+
+{% for image in advertisement.images.all %}
+    <img src="{{ image.image.url }}" alt="Advertisement Image" width="200">
+{% endfor %}
+
+<form method="post" action="{% url 'response_create' pk=advertisement.pk %}">
+    {% csrf_token %}
+    {{ response_form.as_p }}
+    <button type="submit">Отправить отклик</button>
+</form>
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}

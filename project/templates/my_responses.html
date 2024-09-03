@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Мои отклики</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Advertisement</th>
+            <th>Content</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for response in responses %}
+        <tr>
+            <td>{{ response.advertisement.title }}</td>
+            <td>{{ response.content }}</td>
+            <td>
+                <a href="{% url 'accept_response' response.id %}">Accept</a>
+                <a href="{% url 'delete_response' response.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

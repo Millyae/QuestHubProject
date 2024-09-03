@@ -1,0 +1,85 @@
+{% extends "flatpages/default.html" %}
+
+{% block content %}
+<style>
+    .login-container {
+        max-width: 400px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .login-container table {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .login-container td {
+        padding: 10px;
+    }
+
+    .login-container input[type="submit"] {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .login-container input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .register-button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        text-align: center;
+        color: #007bff;
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        margin-top: 10px;
+    }
+
+    .register-button:hover {
+        background-color: #e9ecef;
+        border-color: #007bff;
+        color: #0056b3;
+    }
+</style>
+
+<div class="login-container">
+    <h2>Войти в систему</h2>
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>{{ form.username.label_tag }}</td>
+                <td>{{ form.username }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.password.label_tag }}</td>
+                <td>{{ form.password }}</td>
+            </tr>
+        </table>
+        <input type="submit" value="Войти">
+    </form>
+    <a href="/sign/signup/" class="register-button">Регистрация</a>
+</div>
+{% endblock content %}
